@@ -4,7 +4,7 @@
 
 You do not build a civilization. You ask it questions, and you braid it. Your people are cohorts, drawn as pairs of worldlines running upward through time. Braiding two worldlines (crossing one over the other) changes what the people are without anyone deciding anything: it is protected, reversible, and, because the braid group is non-commutative, the order of crossings matters. Asking a question forces a cohort to take a definite stance: it creates a fact that did not exist before, and it costs coherence. Some questions cannot both be answered sharply. The questions you never ask keep interfering. Your only master statistic is coherence, whether your society is still one thing. Lose it and the civilization collapses; only its myths survive into the next level. Late in the game, two civilizations can prove their alliance is real with a Bell test that no amount of prior coordination can fake. That is the Federation.
 
-Nine levels, about twenty minutes. Plays in the browser on a phone or a desktop.
+Nine levels, about twenty minutes. Plays in the browser on a phone or a desktop. A short tutorial opens the game; every level has Help, a Map of the whole journey, and a Stuck? button that explains the next move and will make it for you if you like.
 
 ## How it relates to quantum physics
 

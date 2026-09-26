@@ -15,6 +15,10 @@ browser, with every draw labelled on screen.
 
 - Stack: Next.js 15 (App Router), TypeScript, Tailwind. No game engine, no
   external fonts, no runtime network access. All art is procedural SVG.
+- Onboarding: a five-page tutorial before the first level (again from
+  "How to play"), a **Help** panel per level, a **Stuck?** button that
+  explains the next move and can play it for you (`src/game/hints.ts`),
+  and a **Map** overlay of the whole journey with the current stage marked.
 - Simulator: `src/sim/` (hand-written, dependency-free, tested).
 - Game rules and levels: `src/game/`, `src/levels/`.
 - Baked Moth results: `public/moth/` (see `scripts/moth-api-notes.md`).
@@ -23,7 +27,8 @@ browser, with every draw labelled on screen.
 
 ```sh
 npm install
-npm test          # vitest: braid relations, Born statistics, CHSH, QASM, levels
+npm test          # vitest: braid relations, Born statistics, CHSH, QASM, levels,
+                  # and a full playthrough of every level by the Stuck? solver
 npm run dev       # http://localhost:3000
 ```
 

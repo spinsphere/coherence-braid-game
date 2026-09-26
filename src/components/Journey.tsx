@@ -39,7 +39,7 @@ function FlowStrip({ progress, currentId, currentFraction }: { progress: Progres
   const y = 44;
   const done = progress.completed.length;
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} width="100%" height="auto" className="max-w-3xl" role="img" aria-label={`Journey: ${done} of ${n} levels won`}>
+    <svg viewBox={`0 0 ${W} ${H}`} width="100%" className="max-w-3xl h-auto" role="img" aria-label={`Journey: ${done} of ${n} levels won`}>
       {/* two strands of the civilization, braided once per level */}
       {LEVELS.map((l, i) => {
         const a = i === 0 ? 8 : xs[i - 1];
