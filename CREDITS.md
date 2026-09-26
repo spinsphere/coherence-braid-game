@@ -2,6 +2,12 @@
 
 **COHERENCE: Braid** was built for the Global Quantum Game Jam 2026.
 
+## Design & Development
+
+- **soliax** (Wandering Consciousness)
+- Twitter/X: https://x.com/WanderingIshiki
+- Source: https://github.com/spinsphere/coherence-braid-game
+
 ## Quantum randomness and witnesses
 
 - **Moth Quantum** (https://mothquantum.com), engines run on the platform emulator on 2026-09-26:

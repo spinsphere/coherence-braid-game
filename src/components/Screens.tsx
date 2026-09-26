@@ -2,6 +2,7 @@
 import { BraidMark } from "./svg/BraidMark";
 import { EntitySilhouette } from "./svg/EntitySilhouette";
 import { PITCH, ABOUT } from "@/content/about";
+import { CREDITS } from "@/content/credits";
 import { CODEX, CODEX_DISCLAIMER, CODEX_ORDER } from "@/content/codex";
 import { LEVELS } from "@/levels/levels";
 import type { Progress } from "@/lib/storage";
@@ -9,6 +10,21 @@ import { ENTROPY, COINTOSS, mothBellS } from "@/lib/moth";
 import { CertificateBody } from "./modals/Certificate";
 import type { EntityId } from "@/game/contact";
 import { useState } from "react";
+
+export function CreditsLine({ className = "" }: { className?: string }) {
+  return (
+    <p className={`text-[11px] text-muted ${className}`}>
+      {CREDITS.role} by <span className="text-ink">{CREDITS.author}</span> ({CREDITS.alias}) ·{" "}
+      <a href={CREDITS.twitter.url} target="_blank" rel="noopener noreferrer" className="underline hover:text-accent">
+        {CREDITS.twitter.label}
+      </a>{" "}
+      ·{" "}
+      <a href={CREDITS.github.url} target="_blank" rel="noopener noreferrer" className="underline hover:text-accent">
+        GitHub
+      </a>
+    </p>
+  );
+}
 
 const Nav = ({ onBack, title }: { onBack: () => void; title: string }) => (
   <div className="flex items-center gap-3 mb-4">
@@ -47,6 +63,7 @@ export function TitleScreen({ onPlay, onLevels, onCodex, onAbout, quantumLeft, s
         Randomness enters in one place: the Born rule. This build carries {quantumLeft} quantum outcome{quantumLeft === 1 ? "" : "s"} from Moth Quantum (next draw: <span className="mono">{source}</span>)
         {s !== null ? `, and a CHSH witness of S = ${s.toFixed(3)} from its comet-qrng-v1 job` : ""}. After that it says so and uses classical randomness.
       </p>
+      <CreditsLine className="mt-4" />
     </main>
   );
 }
@@ -155,6 +172,16 @@ export function AboutScreen({ onBack }: { onBack: () => void }) {
         <section>
           <h2 className="text-lg font-semibold">Credits</h2>
           <ul className="text-sm leading-relaxed text-ink/90 mt-2 list-disc pl-5">
+            <li>
+              {CREDITS.role} by <span className="text-ink font-medium">{CREDITS.author}</span> ({CREDITS.alias}).{" "}
+              <a href={CREDITS.twitter.url} target="_blank" rel="noopener noreferrer" className="underline hover:text-accent">
+                {CREDITS.twitter.label}
+              </a>{" "}
+              ·{" "}
+              <a href={CREDITS.github.url} target="_blank" rel="noopener noreferrer" className="underline hover:text-accent">
+                source on GitHub
+              </a>
+            </li>
             <li>
               Moth Quantum: engines {ENTROPY.source === "moth" ? `comet-qrng-v1 (job ${ENTROPY.jobId})` : ""}
               {COINTOSS.source === "moth" ? `, coin-toss-v1 (job ${COINTOSS.jobId})` : ""}, labyrinth-v1 (see provenance.json).

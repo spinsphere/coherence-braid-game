@@ -16,4 +16,6 @@ The braid is the game's verb. Crossings are the generators of the braid group in
 
 ## Credits
 
+Design & Development by soliax (Wandering Consciousness), https://x.com/WanderingIshiki. Source: https://github.com/spinsphere/coherence-braid-game.
+
 Moth Quantum (coin-toss-v1, comet-qrng-v1, labyrinth-v1; job ids in the game's certificate panel). Busemeyer and Bruza, *Quantum Models of Cognition and Decision*. Trnka and Lorencová, *Quantum Anthropology*. The Ising-anyon braid representation from topological quantum computing. All art is procedural SVG.

@@ -3,6 +3,10 @@
 A browser game for the **Global Quantum Game Jam 2026** (theme: quantum braiding).
 You do not build a civilization. You ask it questions, and you braid it.
 
+Design & Development by **soliax** (Wandering Consciousness) ·
+[x.com/WanderingIshiki](https://x.com/WanderingIshiki) ·
+[github.com/spinsphere/coherence-braid-game](https://github.com/spinsphere/coherence-braid-game)
+
 Cohorts are qubits drawn as pairs of worldlines. Braiding is the Ising-anyon
 (Majorana) representation of the braid group, computed exactly on a density
 matrix. Asking is a projective measurement, the only place randomness enters,
