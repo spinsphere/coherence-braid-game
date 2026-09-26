@@ -76,7 +76,7 @@ function FlowStrip({ progress, currentId, currentFraction }: { progress: Progres
               {status === "won" ? "✓" : l.index}
             </text>
             <text x={xs[i]} y={y + 34} fill={status === "locked" ? "#5a6690" : "#9aa5cc"} fontSize={9} textAnchor="middle">
-              {l.title.length > 14 ? l.title.replace("The ", "") : l.title}
+              {l.title.length > 14 ? l.title.replace("The ", "").split(" ")[0] : l.title}
             </text>
           </g>
         );
