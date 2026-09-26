@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
   // relative to the page rather than to the site root.
   assetPrefix: isStatic ? "./" : undefined,
   trailingSlash: isStatic,
+  // Route handlers live in route.ts; the static build only recognises .tsx
+  // pages, which drops the /api/moth/seed proxy (it needs a server anyway).
+  pageExtensions: isStatic ? ["tsx", "jsx", "js"] : ["tsx", "ts", "jsx", "js"],
   images: { unoptimized: true },
   reactStrictMode: true,
 };
