@@ -1,0 +1,24 @@
+{
+  "source": "moth",
+  "engine": "coin-toss-v1",
+  "engineVersion": "1.0.15",
+  "jobId": "5ad6bf88-5167-4099-bd17-e457e059fb0b",
+  "mode": "emu",
+  "backend": "aer",
+  "createdAt": "2026-09-26T01:37:32Z",
+  "shots": 1024,
+  "heads": 515,
+  "tails": 509,
+  "output": "heads",
+  "bits": "",
+  "note": "coin-toss-v1 returns heads/tails counts, not a per-shot bit sequence.",
+  "raw": {
+    "backend": "aer",
+    "heads": 515,
+    "ibm_job_id": "a9116b389c8144b2b05ba55c96be2bb2",
+    "mode": "emu",
+    "output": "heads",
+    "shots": 1024,
+    "tails": 509
+  }
+}

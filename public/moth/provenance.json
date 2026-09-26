@@ -1,0 +1,96 @@
+{
+  "bakedAt": "2026-09-26T01:38:42.847Z",
+  "baseUrl": "https://api.mothquantum.com",
+  "jobs": {
+    "cointoss": {
+      "engine": "coin-toss-v1",
+      "jobId": "5ad6bf88-5167-4099-bd17-e457e059fb0b",
+      "status": "completed",
+      "submittedAt": "2026-09-26T01:37:32Z",
+      "creditsPerRun": 2,
+      "request": {
+        "mode": "emu",
+        "params": {
+          "shots": 1024
+        }
+      },
+      "completedAt": "2026-09-26T01:37:34Z"
+    },
+    "entropy": {
+      "engine": "comet-qrng-v1",
+      "jobId": "6dd52104-4110-4160-a6ea-e7dccc0641e0",
+      "status": "completed",
+      "submittedAt": "2026-09-26T01:37:47Z",
+      "creditsPerRun": 5,
+      "request": {
+        "mode": "emu",
+        "params": {
+          "num_qubits": 12,
+          "shots": 10000,
+          "output_bytes": 8192,
+          "bell_witness": true,
+          "include_raw_counts": true,
+          "epsilon_log2": 64
+        }
+      },
+      "completedAt": "2026-09-26T01:37:48Z"
+    },
+    "labyrinth": {
+      "engine": "labyrinth-v1",
+      "jobId": "df376f7a-5303-4b14-9f0d-b3e3d67cbc07",
+      "status": "completed",
+      "submittedAt": "2026-09-26T01:38:35Z",
+      "creditsPerRun": 5,
+      "request": {
+        "mode": "emu",
+        "params": {
+          "level_data": {
+            "name": "coherence-deep-time",
+            "grid_size": {
+              "rows": 1,
+              "cols": 5
+            },
+            "num_qubits": 5,
+            "coupling_map": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                3,
+                4
+              ]
+            ]
+          },
+          "shots": 4096,
+          "k": 2
+        }
+      },
+      "completedAt": "2026-09-26T01:38:37Z"
+    }
+  },
+  "catalog": {
+    "coin-toss-v1": {
+      "name": "Coin Toss",
+      "version": "1.0.15",
+      "credits_per_run": 2,
+      "updated_at": "2026-09-10T01:28:28Z"
+    },
+    "comet-qrng-v1": {
+      "name": "Comet Quantum RNG Engine",
+      "version": "1.0.0",
+      "credits_per_run": 5,
+      "updated_at": "2026-09-09T15:58:44Z"
+    },
+    "labyrinth-v1": {
+      "name": "Quantum Labyrinth Engine",
+      "version": null,
+      "credits_per_run": 5,
+      "updated_at": "2026-09-10T01:27:53Z"
+    }
+  }
+}

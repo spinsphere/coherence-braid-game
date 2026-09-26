@@ -1,0 +1,243 @@
+{
+  "source": "moth",
+  "engine": "labyrinth-v1",
+  "jobId": "df376f7a-5303-4b14-9f0d-b3e3d67cbc07",
+  "mode": "emu",
+  "createdAt": "2026-09-26T01:38:35Z",
+  "request": {
+    "name": "coherence-deep-time",
+    "grid_size": {
+      "rows": 1,
+      "cols": 5
+    },
+    "num_qubits": 5,
+    "coupling_map": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        3,
+        4
+      ]
+    ]
+  },
+  "raw": {
+    "coupling_map": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        4
+      ]
+    ],
+    "grid_size": {
+      "cols": 5,
+      "rows": 1
+    },
+    "initial_states": {
+      "0": {
+        "X": 0.4792349158963477,
+        "Y": -2.120934383017638e-14,
+        "Z": -0.22897674132915152,
+        "radiating": false
+      },
+      "1": {
+        "X": 0.11010101884677032,
+        "Y": 2.2090173562577695e-13,
+        "Z": -0.3982891509271448,
+        "radiating": false
+      },
+      "2": {
+        "X": 0.35788041296306883,
+        "Y": -3.946875870596711e-13,
+        "Z": -0.2935771238366312,
+        "radiating": false
+      },
+      "3": {
+        "X": 0.19609803737371068,
+        "Y": 8.563446320207006e-14,
+        "Z": 0.31048424094056926,
+        "radiating": false
+      },
+      "4": {
+        "X": 0.5953032227229773,
+        "Y": 2.0560474363286046e-13,
+        "Z": 0.22192319372471514,
+        "radiating": false
+      }
+    },
+    "metrics": {
+      "backend": "aer",
+      "depth": null,
+      "depth_2q": null,
+      "fraction": 0.3333333333333333,
+      "ibm_job_id": null,
+      "k": 2,
+      "mode": "emu",
+      "num_shots": 4096,
+      "qpu_seconds": null,
+      "shots": 4096,
+      "steps": 3,
+      "sz_samp": 0.5792236328125,
+      "sz_tomo": 0.4977591699388966
+    },
+    "name": "coherence-deep-time",
+    "num_qubits": 5,
+    "relationships": [],
+    "results": {
+      "measurements": [
+        {
+          "bitstring": "11100",
+          "probability": 0.3232421875
+        },
+        {
+          "bitstring": "00000",
+          "probability": 0.15625
+        },
+        {
+          "bitstring": "11111",
+          "probability": 0.102783203125
+        },
+        {
+          "bitstring": "01011",
+          "probability": 0.07568359375
+        },
+        {
+          "bitstring": "11011",
+          "probability": 0.067138671875
+        },
+        {
+          "bitstring": "00011",
+          "probability": 0.05712890625
+        },
+        {
+          "bitstring": "10000",
+          "probability": 0.0400390625
+        },
+        {
+          "bitstring": "00100",
+          "probability": 0.037109375
+        },
+        {
+          "bitstring": "11000",
+          "probability": 0.032470703125
+        },
+        {
+          "bitstring": "00111",
+          "probability": 0.021240234375
+        },
+        {
+          "bitstring": "11101",
+          "probability": 0.017333984375
+        },
+        {
+          "bitstring": "01100",
+          "probability": 0.01611328125
+        },
+        {
+          "bitstring": "10100",
+          "probability": 0.01611328125
+        },
+        {
+          "bitstring": "10011",
+          "probability": 0.010498046875
+        },
+        {
+          "bitstring": "01111",
+          "probability": 0.007568359375
+        },
+        {
+          "bitstring": "11110",
+          "probability": 0.006591796875
+        }
+      ],
+      "z_expectations": [
+        -0.22897674132915152,
+        -0.3982891509271448,
+        -0.2935771238366312,
+        0.31048424094056926,
+        0.22192319372471514
+      ],
+      "zz_couplings": [
+        {
+          "qubits": [
+            0,
+            1
+          ],
+          "value": 0.8366235965409144
+        },
+        {
+          "qubits": [
+            1,
+            2
+          ],
+          "value": 0.27491361775203554
+        },
+        {
+          "qubits": [
+            2,
+            3
+          ],
+          "value": -0.4973532537756982
+        },
+        {
+          "qubits": [
+            3,
+            4
+          ],
+          "value": 0.3821462116869381
+        }
+      ]
+    },
+    "target": {
+      "convention": "sign=+1 corridor/door (ZZ=+1), sign=-1 wall (ZZ=-1)",
+      "edge_signs": [
+        {
+          "qubits": [
+            0,
+            1
+          ],
+          "sign": 1
+        },
+        {
+          "qubits": [
+            1,
+            2
+          ],
+          "sign": 1
+        },
+        {
+          "qubits": [
+            2,
+            3
+          ],
+          "sign": -1
+        },
+        {
+          "qubits": [
+            3,
+            4
+          ],
+          "sign": 1
+        }
+      ],
+      "n_barrier": 1,
+      "n_corridor": 3
+    }
+  }
+}
