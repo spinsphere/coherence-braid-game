@@ -35,7 +35,23 @@ const Nav = ({ onBack, title }: { onBack: () => void; title: string }) => (
   </div>
 );
 
-export function TitleScreen({ onPlay, onLevels, onCodex, onAbout, quantumLeft, source }: { onPlay: () => void; onLevels: () => void; onCodex: () => void; onAbout: () => void; quantumLeft: number; source: string }) {
+export function TitleScreen({
+  onPlay,
+  onTutorial,
+  onLevels,
+  onCodex,
+  onAbout,
+  quantumLeft,
+  source,
+}: {
+  onPlay: () => void;
+  onTutorial: () => void;
+  onLevels: () => void;
+  onCodex: () => void;
+  onAbout: () => void;
+  quantumLeft: number;
+  source: string;
+}) {
   const s = mothBellS();
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-6 text-center">
@@ -48,6 +64,9 @@ export function TitleScreen({ onPlay, onLevels, onCodex, onAbout, quantumLeft, s
       <div className="mt-8 flex flex-wrap gap-2 justify-center">
         <button onClick={onPlay} className="px-6 py-3 rounded-lg bg-accent text-bg font-semibold text-base hover:brightness-110">
           Play
+        </button>
+        <button onClick={onTutorial} className="px-5 py-3 rounded-lg border border-line hover:border-accent">
+          How to play
         </button>
         <button onClick={onLevels} className="px-5 py-3 rounded-lg border border-line hover:border-accent">
           Levels

@@ -8,9 +8,10 @@ export interface Progress {
   mythemes: Record<string, Crossing[][]>;
   codex: string[];
   seenIntro: string[];
+  seenTutorial?: boolean;
 }
 
-const DEFAULT: Progress = { unlocked: 1, completed: [], mythemes: {}, codex: [], seenIntro: [] };
+const DEFAULT: Progress = { unlocked: 1, completed: [], mythemes: {}, codex: [], seenIntro: [], seenTutorial: false };
 
 export function loadProgress(): Progress {
   try {
