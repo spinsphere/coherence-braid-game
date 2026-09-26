@@ -10,6 +10,8 @@ import { Cloud } from "./Cloud";
 import { StatusPanel } from "./StatusPanel";
 import { ActionPanel } from "./ActionPanel";
 import { BellModal, CertificateModal, CloudsModal, CollapseModal, ContactModal, FailedModal, InfoModal, IntroModal, OrderModal, QasmModal, WinModal } from "./modals/Modals";
+import { HelpModal, HintModal } from "./modals/HelpModals";
+import { describeAction, nextHint } from "@/game/hints";
 import type { EntityId } from "@/game/contact";
 import { mothProxyUrl } from "@/lib/moth";
 import { uniformsFromBytes, hexToBytes } from "@/sim";
@@ -36,7 +38,7 @@ interface Props {
   initialEvents?: GameEvent[];
 }
 
-type ModalItem = GameEvent | { type: "intro" } | { type: "certificate" } | { type: "qasm"; text: string };
+type ModalItem = GameEvent | { type: "intro" } | { type: "certificate" } | { type: "qasm"; text: string } | { type: "hint" } | { type: "help" };
 
 export function GameScreen({ level, mythemes, rng, onOutcome, onNext, onLevels, onRetry, hasNext, initialState, readOnly = false, initialEvents }: Props) {
   const [state, setState] = useState<GameState>(() => initialState ?? createGame(level, mythemes));
@@ -135,11 +137,40 @@ export function GameScreen({ level, mythemes, rng, onOutcome, onNext, onLevels, 
   const current = queue[0];
   const pop = () => setQueue((q) => q.slice(1));
 
+  // the solver runs only while its popup is open, or once per state for the stage marker
+  const hint = useMemo(() => nextHint(state), [state]);
+  const openHint = () => setQueue((q) => [...q, { type: "hint" }]);
+  const openHelp = () => setQueue((q) => [...q, { type: "help" }]);
+  const playHint = () => {
+    pop();
+    if (!hint.action) return;
+    const label = describeAction(state, hint.action);
+    dispatch(hint.action);
+    setToast(`Played for you: ${label}`);
+  };
+
   const interference = state.level.showInterference ? interferenceReport(state) : null;
 
   return (
     <div className="min-h-screen p-3 sm:p-4 max-w-[1500px] mx-auto">
       {toast && <div className="fixed top-3 left-1/2 -translate-x-1/2 z-40 px-4 py-2 rounded-full bg-panel-2 border border-line text-sm fade-in">{toast}</div>}
+      <div className="flex items-center gap-2 mb-3 flex-wrap">
+        <div className="min-w-0 flex-1">
+          <span className="text-[11px] uppercase tracking-wide text-muted">Level {state.level.index}</span>
+          <span className="text-sm font-semibold ml-2">{state.level.title}</span>
+          <span className="text-xs text-muted ml-2 hidden sm:inline">{state.level.subtitle}</span>
+        </div>
+        {!readOnly && (
+          <div className="flex gap-1.5">
+            <button onClick={openHelp} className="px-3 py-1.5 rounded-lg border border-line hover:border-accent text-sm" title="What this level is about and how to play it">
+              Help
+            </button>
+            <button onClick={openHint} className="px-3 py-1.5 rounded-lg bg-accent text-bg font-semibold text-sm hover:brightness-110" title="See the next move explained, and let the game make it for you">
+              Stuck?
+            </button>
+          </div>
+        )}
+      </div>
       <div className="grid grid-cols-1 lg:grid-cols-[300px_minmax(0,1fr)_340px] gap-3 items-start">
         <div className="order-3 lg:order-1">
           <StatusPanel
@@ -194,6 +225,15 @@ export function GameScreen({ level, mythemes, rng, onOutcome, onNext, onLevels, 
         <InfoModal kicker="The register" title={`The ${state.cohorts[current.cohort].name} are listed now`} body="Their questions can be asked. Their purity was never hidden from the dial, only from you." onClose={pop} />
       )}
       {current && current.type === "era" && <InfoModal kicker="Deep time" title={`A new era: ${current.era}`} body="The questions change with the era." onClose={pop} />}
+      {current && current.type === "hint" && <HintModal state={state} hint={hint} onDoIt={playHint} onClose={pop} onRetry={onRetry} />}
+      {current && current.type === "help" && (
+        <HelpModal
+          state={state}
+          phase={hint.phase}
+          onClose={pop}
+          onStuck={() => setQueue((q) => [{ type: "hint" }, ...q.slice(1)])}
+        />
+      )}
     </div>
   );
 }
