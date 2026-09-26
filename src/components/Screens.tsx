@@ -38,6 +38,7 @@ const Nav = ({ onBack, title }: { onBack: () => void; title: string }) => (
 export function TitleScreen({
   onPlay,
   onTutorial,
+  onMap,
   onLevels,
   onCodex,
   onAbout,
@@ -46,6 +47,7 @@ export function TitleScreen({
 }: {
   onPlay: () => void;
   onTutorial: () => void;
+  onMap: () => void;
   onLevels: () => void;
   onCodex: () => void;
   onAbout: () => void;
@@ -71,6 +73,9 @@ export function TitleScreen({
         <button onClick={onLevels} className="px-5 py-3 rounded-lg border border-line hover:border-accent">
           Levels
         </button>
+        <button onClick={onMap} className="px-5 py-3 rounded-lg border border-line hover:border-accent">
+          Map
+        </button>
         <button onClick={onCodex} className="px-5 py-3 rounded-lg border border-line hover:border-accent">
           Codex
         </button>
@@ -87,10 +92,15 @@ export function TitleScreen({
   );
 }
 
-export function LevelSelect({ progress, onBack, onStart, onUnlockAll }: { progress: Progress; onBack: () => void; onStart: (id: string) => void; onUnlockAll: () => void }) {
+export function LevelSelect({ progress, onBack, onStart, onMap, onUnlockAll }: { progress: Progress; onBack: () => void; onStart: (id: string) => void; onMap: () => void; onUnlockAll: () => void }) {
   return (
     <main className="min-h-screen p-4 sm:p-6 max-w-3xl mx-auto">
-      <Nav onBack={onBack} title="Levels" />
+      <div className="flex items-center justify-between">
+        <Nav onBack={onBack} title="Levels" />
+        <button onClick={onMap} className="text-sm px-3 py-1.5 rounded-lg border border-line hover:border-accent mb-4">
+          Map
+        </button>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {LEVELS.map((l) => {
           const unlocked = l.index <= progress.unlocked;

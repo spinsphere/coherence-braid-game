@@ -11,6 +11,8 @@ import { StatusPanel } from "./StatusPanel";
 import { ActionPanel } from "./ActionPanel";
 import { BellModal, CertificateModal, CloudsModal, CollapseModal, ContactModal, FailedModal, InfoModal, IntroModal, OrderModal, QasmModal, WinModal } from "./modals/Modals";
 import { HelpModal, HintModal } from "./modals/HelpModals";
+import { JourneyOverlay } from "./Journey";
+import type { Progress } from "@/lib/storage";
 import { describeAction, nextHint } from "@/game/hints";
 import type { EntityId } from "@/game/contact";
 import { mothProxyUrl } from "@/lib/moth";
@@ -32,6 +34,8 @@ interface Props {
   onLevels: () => void;
   onRetry: () => void;
   hasNext: boolean;
+  /** saved progress, for the map */
+  progress?: Progress;
   /** press renders: no intro, no interaction */
   initialState?: GameState;
   readOnly?: boolean;
@@ -40,13 +44,14 @@ interface Props {
 
 type ModalItem = GameEvent | { type: "intro" } | { type: "certificate" } | { type: "qasm"; text: string } | { type: "hint" } | { type: "help" };
 
-export function GameScreen({ level, mythemes, rng, onOutcome, onNext, onLevels, onRetry, hasNext, initialState, readOnly = false, initialEvents }: Props) {
+export function GameScreen({ level, mythemes, rng, onOutcome, onNext, onLevels, onRetry, hasNext, progress, initialState, readOnly = false, initialEvents }: Props) {
   const [state, setState] = useState<GameState>(() => initialState ?? createGame(level, mythemes));
   const [basis, setBasis] = useState<Basis>(initialState && initialState.level.showInterference ? "X" : "Z");
   const [queue, setQueue] = useState<ModalItem[]>(() => (readOnly ? [...(initialEvents ?? [])] : [{ type: "intro" }]));
   const [copied, setCopied] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const [seedBusy, setSeedBusy] = useState(false);
+  const [mapOpen, setMapOpen] = useState(false);
   const [, setTick] = useState(0);
   const reported = useRef(false);
 
@@ -165,6 +170,9 @@ export function GameScreen({ level, mythemes, rng, onOutcome, onNext, onLevels, 
             <button onClick={openHelp} className="px-3 py-1.5 rounded-lg border border-line hover:border-accent text-sm" title="What this level is about and how to play it">
               Help
             </button>
+            <button onClick={() => setMapOpen(true)} className="px-3 py-1.5 rounded-lg border border-line hover:border-accent text-sm" title="The whole journey, and where you are on it">
+              Map
+            </button>
             <button onClick={openHint} className="px-3 py-1.5 rounded-lg bg-accent text-bg font-semibold text-sm hover:brightness-110" title="See the next move explained, and let the game make it for you">
               Stuck?
             </button>
@@ -225,6 +233,7 @@ export function GameScreen({ level, mythemes, rng, onOutcome, onNext, onLevels, 
         <InfoModal kicker="The register" title={`The ${state.cohorts[current.cohort].name} are listed now`} body="Their questions can be asked. Their purity was never hidden from the dial, only from you." onClose={pop} />
       )}
       {current && current.type === "era" && <InfoModal kicker="Deep time" title={`A new era: ${current.era}`} body="The questions change with the era." onClose={pop} />}
+      {mapOpen && progress && <JourneyOverlay progress={progress} current={{ state, phase: hint.phase }} onClose={() => setMapOpen(false)} />}
       {current && current.type === "hint" && <HintModal state={state} hint={hint} onDoIt={playHint} onClose={pop} onRetry={onRetry} />}
       {current && current.type === "help" && (
         <HelpModal

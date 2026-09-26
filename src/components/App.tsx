@@ -6,6 +6,7 @@ import { sessionRng } from "@/lib/moth";
 import { GameScreen, type GameOutcome } from "./GameScreen";
 import { AboutScreen, CodexScreen, LevelSelect, TitleScreen } from "./Screens";
 import { TutorialModal } from "./Tutorial";
+import { JourneyOverlay } from "./Journey";
 
 type Screen = { name: "title" } | { name: "levels" } | { name: "codex" } | { name: "about" } | { name: "game"; levelId: string; run: number };
 
@@ -15,6 +16,7 @@ export function App() {
   const [ready, setReady] = useState(false);
   /** the tutorial is open; when it closes, start this level (or nothing) */
   const [tutorial, setTutorial] = useState<{ then: string | null } | null>(null);
+  const [mapOpen, setMapOpen] = useState(false);
   useEffect(() => {
     setProgress(loadProgress());
     setReady(true);
@@ -67,6 +69,16 @@ export function App() {
   if (!ready) return <main className="min-h-screen" />;
 
   const tutorialModal = tutorial ? <TutorialModal onDone={closeTutorial} /> : null;
+  const mapOverlay = mapOpen ? (
+    <JourneyOverlay
+      progress={progress}
+      onClose={() => setMapOpen(false)}
+      onStart={(id) => {
+        setMapOpen(false);
+        play(id);
+      }}
+    />
+  ) : null;
 
   if (screen.name === "game") {
     const level = levelById(screen.levelId);
@@ -79,6 +91,7 @@ export function App() {
         rng={rng}
         onOutcome={onOutcome}
         hasNext={Boolean(nextLevel)}
+        progress={progress}
         onNext={() => nextLevel && start(nextLevel.id)}
         onLevels={() => setScreen({ name: "levels" })}
         onRetry={() => start(level.id)}
@@ -92,9 +105,11 @@ export function App() {
           progress={progress}
           onBack={() => setScreen({ name: "title" })}
           onStart={play}
+          onMap={() => setMapOpen(true)}
           onUnlockAll={() => update((p) => ({ ...p, unlocked: LEVELS.length }))}
         />
         {tutorialModal}
+        {mapOverlay}
       </>
     );
   if (screen.name === "codex") return <CodexScreen progress={progress} onBack={() => setScreen({ name: "title" })} />;
@@ -105,6 +120,7 @@ export function App() {
       <TitleScreen
         onPlay={() => play(nextUnfinished.id)}
         onTutorial={() => setTutorial({ then: null })}
+        onMap={() => setMapOpen(true)}
         onLevels={() => setScreen({ name: "levels" })}
         onCodex={() => setScreen({ name: "codex" })}
         onAbout={() => setScreen({ name: "about" })}
@@ -112,6 +128,7 @@ export function App() {
         source={rng.source()}
       />
       {tutorialModal}
+      {mapOverlay}
     </>
   );
 }
