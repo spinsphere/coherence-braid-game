@@ -31,7 +31,7 @@ import { COHORT_COLORS, DEFAULT_COHORT_NAMES } from "@/content/cohorts";
 import { eraIndex, ERAS } from "@/content/eras";
 import { PAIR_ORDER, questionFor } from "./questions";
 import { readContact } from "./contact";
-import type { BellReport, CloudSnapshot, CohortState, GameAction, GameEvent, GameState, Level, OrderComparison, WorldLineEntry } from "./types";
+import type { BellReport, CloudSnapshot, CohortState, GameAction, GameState, Level, OrderComparison, WorldLineEntry } from "./types";
 
 /** A season erodes a quarter of a cohort's deprivation: p_dephase = deprivation * 0.25. */
 export const DEPHASE_PER_SEASON = 0.25;
@@ -245,7 +245,7 @@ export function step(prev: GameState, action: GameAction, rng: BornRng): GameSta
   if (state.level.contact && season === CONTACT_SEASON && !state.contactEntity) {
     const reading = readContact(state.worldLine, currentPair(state));
     state.contactEntity = reading.entity;
-    state.events.push({ type: "contact", entityId: reading.entity });
+    state.events.push({ type: "contact", entityId: reading.entity, reading: { zCount: reading.zCount, xCount: reading.xCount, dominant: reading.dominant } });
   }
 
   // level 3: once both required crossings have been used, show both orders

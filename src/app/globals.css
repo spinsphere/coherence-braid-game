@@ -91,3 +91,11 @@ button:disabled {
   scrollbar-width: thin;
   scrollbar-color: var(--line) transparent;
 }
+
+/* press frames: keep each frame's modal inside its own box */
+.press-frame {
+  position: relative;
+}
+.press-frame .modal-root {
+  position: absolute;
+}

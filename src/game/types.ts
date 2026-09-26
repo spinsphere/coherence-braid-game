@@ -105,7 +105,7 @@ export type GameEvent =
   | { type: "won" }
   | { type: "collapsed"; mytheme: Crossing[] }
   | { type: "failed"; reason: string }
-  | { type: "contact"; entityId: string }
+  | { type: "contact"; entityId: string; reading: { zCount: number; xCount: number; dominant: "Z" | "X" | "balanced" } }
   | { type: "order"; data: OrderComparison }
   | { type: "clouds"; data: CloudSnapshot[] }
   | { type: "bell"; data: BellReport }

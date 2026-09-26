@@ -1,0 +1,93 @@
+"use client";
+import { useCallback, useEffect, useState } from "react";
+import { LEVELS, levelById } from "@/levels/levels";
+import { loadProgress, saveProgress, type Progress } from "@/lib/storage";
+import { sessionRng } from "@/lib/moth";
+import { GameScreen, type GameOutcome } from "./GameScreen";
+import { AboutScreen, CodexScreen, LevelSelect, TitleScreen } from "./Screens";
+
+type Screen = { name: "title" } | { name: "levels" } | { name: "codex" } | { name: "about" } | { name: "game"; levelId: string; run: number };
+
+export function App() {
+  const [screen, setScreen] = useState<Screen>({ name: "title" });
+  const [progress, setProgress] = useState<Progress>(() => ({ unlocked: 1, completed: [], mythemes: {}, codex: [], seenIntro: [] }));
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    setProgress(loadProgress());
+    setReady(true);
+  }, []);
+  const update = useCallback((fn: (p: Progress) => Progress) => {
+    setProgress((p) => {
+      const n = fn(p);
+      saveProgress(n);
+      return n;
+    });
+  }, []);
+
+  const rng = sessionRng();
+
+  const start = (levelId: string) => setScreen({ name: "game", levelId, run: Date.now() });
+
+  const onOutcome = useCallback(
+    (o: GameOutcome) => {
+      update((p) => {
+        const next: Progress = { ...p, completed: [...p.completed], codex: [...p.codex], mythemes: { ...p.mythemes } };
+        if (o.entity && !next.codex.includes(o.entity)) next.codex.push(o.entity);
+        if (o.type === "won") {
+          if (!next.completed.includes(o.levelId)) next.completed.push(o.levelId);
+          const idx = levelById(o.levelId).index;
+          next.unlocked = Math.max(next.unlocked, Math.min(LEVELS.length, idx + 1));
+        }
+        if (o.type === "collapsed" && o.mytheme && o.mytheme.length) {
+          const prev = next.mythemes[o.levelId] ?? [];
+          const lvl = levelById(o.levelId);
+          next.mythemes[o.levelId] = lvl.sandbox ? [...prev, o.mytheme].slice(-4) : [o.mytheme];
+        }
+        return next;
+      });
+    },
+    [update],
+  );
+
+  if (!ready) return <main className="min-h-screen" />;
+
+  if (screen.name === "game") {
+    const level = levelById(screen.levelId);
+    const nextLevel = LEVELS.find((l) => l.index === level.index + 1);
+    return (
+      <GameScreen
+        key={`${screen.levelId}-${screen.run}`}
+        level={level}
+        mythemes={progress.mythemes[level.id] ?? []}
+        rng={rng}
+        onOutcome={onOutcome}
+        hasNext={Boolean(nextLevel)}
+        onNext={() => nextLevel && start(nextLevel.id)}
+        onLevels={() => setScreen({ name: "levels" })}
+        onRetry={() => start(level.id)}
+      />
+    );
+  }
+  if (screen.name === "levels")
+    return (
+      <LevelSelect
+        progress={progress}
+        onBack={() => setScreen({ name: "title" })}
+        onStart={start}
+        onUnlockAll={() => update((p) => ({ ...p, unlocked: LEVELS.length }))}
+      />
+    );
+  if (screen.name === "codex") return <CodexScreen progress={progress} onBack={() => setScreen({ name: "title" })} />;
+  if (screen.name === "about") return <AboutScreen onBack={() => setScreen({ name: "title" })} />;
+  const nextUnfinished = LEVELS.find((l) => !progress.completed.includes(l.id) && l.index <= progress.unlocked) ?? LEVELS[0];
+  return (
+    <TitleScreen
+      onPlay={() => start(nextUnfinished.id)}
+      onLevels={() => setScreen({ name: "levels" })}
+      onCodex={() => setScreen({ name: "codex" })}
+      onAbout={() => setScreen({ name: "about" })}
+      quantumLeft={rng.remaining()}
+      source={rng.source()}
+    />
+  );
+}

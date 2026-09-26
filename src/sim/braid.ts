@@ -6,7 +6,7 @@
 // Generators satisfy Yang-Baxter and far commutation; adjacent generators do
 // not commute, which is the order-effect mechanic.
 
-import { applyUnitary, dagger, gate, identityState, type Gate, type Rho, SQRT1_2 } from "./density";
+import { applyUnitary, dagger, gate, identityState, type Gate, type Rho } from "./density";
 
 export interface Crossing {
   k: number; // 1 .. 2n-1
