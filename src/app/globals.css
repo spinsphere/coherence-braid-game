@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0b1020;
+  --bg-2: #111a33;
+  --panel: #141d3a;
+  --panel-2: #1a2447;
+  --line: #2a3563;
+  --text: #e8ecf7;
+  --muted: #9aa5cc;
+  --accent: #f2c98a;
+  --accent-2: #8ad3f2;
+  --danger: #f28a8a;
+  --ok: #9af2b5;
+  --c1: #f2c98a;
+  --c2: #8ad3f2;
+  --c3: #f2a1c8;
+  --c4: #b5f29a;
+  --c5: #d1b0ff;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-line: var(--line);
+  --color-ink: var(--text);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-danger: var(--danger);
+  --color-ok: var(--ok);
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  min-height: 100%;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* newest World-Line row fades and rises in */
+@keyframes row-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.row-in {
+  animation: row-in 250ms ease-out both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fade-in {
+  animation: fade-in 200ms ease-out both;
+}
+
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
