@@ -41,6 +41,16 @@ Consequences:
 - Credits use "soliax (Wandering Consciousness)". If you want a real name on the page, add it to the Credits
   paragraph of the description before making it public.
 
+
+## Rendering the cover and screenshots from the static export
+
+The `/press` page in the static export loads its CSS from `./_next/…`, which resolves to
+`/press/_next/…` and does not exist, so a screenshot of `out/press/` comes out unstyled (white
+background). Either render from `next start` (`npm run build && npm run press`, the repo's own script) or,
+when serving `out/` statically, symlink `out/press/_next -> ../_next` first. Then wait for
+`getComputedStyle(document.body).backgroundColor` to be `rgb(11, 16, 32)` before capturing. The game
+itself at the root is unaffected; itch serves `index.html` at the top of the upload.
+
 ## Files
 
 | Path | What |
