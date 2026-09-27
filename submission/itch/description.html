@@ -1,0 +1,26 @@
+<p><strong>You do not build a civilization. You ask it questions, and you braid it.</strong></p>
+<p>Your people are cohorts, drawn as pairs of worldlines running upward through time. Braiding two worldlines (crossing one over the other) changes what the people are without anyone deciding anything: it is protected, reversible, and, because the braid group is non-commutative, the order of crossings matters. Asking a question forces a cohort to take a definite stance: it creates a fact that did not exist before, and it costs coherence. Some questions cannot both be answered sharply. The questions you never ask keep interfering.</p>
+<p>Your only master statistic is coherence, whether your society is still one thing. Lose it and the civilization collapses; only its myths survive into the next level. Late in the game, two civilizations can prove their alliance is real with a Bell test that no amount of prior coordination can fake. That is the Federation.</p>
+<p>Nine levels, about twenty minutes. Plays in the browser on a phone or a desktop. A short tutorial opens the game; every level has Help, a Map of the whole journey, and a Stuck? button that explains the next move and will make it for you if you like. Judges and the impatient can open every level from the Levels screen.</p>
+<h2>How it relates to quantum physics</h2>
+<p>Every cohort is a qubit and the civilization is a density matrix, simulated exactly. Asking a question is a projective measurement in the Z or X basis; the two questions of each pair are incompatible observables, so a sharp answer to one widens the other, and asking in a different order gives different statistics (level 1 shows you the order you did not choose). Coherence is the purity Tr(ρ²). Deprivation is a dephasing channel. The Federation level runs a CHSH Bell test, exact and sampled, and shows Moth Quantum's own CHSH witness beside it. The Born rule is the only randomness in the game; the first outcome of each session comes from a qubit measured on Moth Quantum's coin-toss engine, and every later one is labelled honestly as classical.</p>
+<h2>How it relates to the theme, quantum braiding</h2>
+<p>The braid is the game's verb. Crossings are the generators of the braid group in its Ising-anyon (Majorana) representation: an internal crossing is exp(−iπ/4·Z), an exchange is exp(−iπ/4·XX), an under-crossing is the inverse. They satisfy the braid relations, they never lower coherence (topological protection as a rule), and they do not commute, which is why level 3 asks you to find the right order and level 8 punishes doing the ritual after the exchange. The diagram on screen is the actual braid word of your civilization, and you can eject it as an OpenQASM 3 circuit.</p>
+<h2>The levels</h2>
+<ol>
+<li><strong>The River</strong> · order effects</li>
+<li><strong>The Crossing</strong> · braiding makes facts travel</li>
+<li><strong>Order</strong> · the braid group does not commute</li>
+<li><strong>Ownership and Obligation</strong> · incompatible questions</li>
+<li><strong>The Unasked</strong> · interference</li>
+<li><strong>Care</strong> · deprivation is decoherence</li>
+<li><strong>Suppression</strong> · hidden decoherence</li>
+<li><strong>The Federation</strong> · a Bell test</li>
+<li><strong>Deep Time</strong> · sandbox, eras and myths</li>
+</ol>
+<h2>Credits</h2>
+<p>Design &amp; development by <strong>soliax</strong> (Wandering Consciousness) · <a href="https://x.com/WanderingIshiki">x.com/WanderingIshiki</a> · <a href="https://github.com/spinsphere/coherence-braid-game">source on GitHub</a></p>
+<p><strong>Moth Quantum</strong> (<a href="https://mothquantum.com">mothquantum.com</a>): coin-toss-v1, comet-qrng-v1 and labyrinth-v1, run on the platform emulator on 2026-09-26; job ids are in the game's certificate panel and in the repository's provenance file.</p>
+<p>Ideas: Busemeyer and Bruza, <em>Quantum Models of Cognition and Decision</em>; Trnka and Lorencová, <em>Quantum Anthropology</em> (used as analogy); the Ising-anyon braid representation from topological quantum computing (Kitaev; Nayak et al., Rev. Mod. Phys. 80, 1083). Everything on screen is procedural SVG and CSS; no engine, no fonts fetched, no likenesses. Built with Next.js, React, Tailwind, Vitest and Playwright (screenshots only).</p>
+<p><strong>License:</strong> MIT, for the game and its source (<a href="https://github.com/spinsphere/coherence-braid-game">github.com/spinsphere/coherence-braid-game</a>). Team of one: soliax (Wandering Consciousness), design, code, physics and art.</p>
+<p>Made for the Global Quantum Game Jam 2026, theme: quantum BRAIDing.</p>
