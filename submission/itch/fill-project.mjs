@@ -2,10 +2,12 @@
 // Fills itch.io's "Create a new project" form in the already logged-in Chrome
 // (launched with --remote-debugging-port=9333). Uploads the zip, the cover and
 // the screenshots, sets every field from page-copy.md, and STOPS before
-// "Save & view page" so a human reviews and saves.
+// "Save & view page" so a human reviews and saves. The full-page capture goes to the OS temp dir
+// (override with --preview); it shows the logged-in dashboard, so do not commit it.
 //
 //   node submission/itch/fill-project.mjs [--video <youtube-url>] [--ai yes|no] [--preview <png>]
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
@@ -15,7 +17,7 @@ const ASSETS = path.resolve(HERE, "..", "assets");
 const arg = (k, d = null) => { const i = process.argv.indexOf(k); return i >= 0 ? process.argv[i + 1] : d; };
 const VIDEO = arg("--video", "");
 const AI = arg("--ai", "yes");
-const PREVIEW = arg("--preview", path.join(ASSETS, "itch-form-preview.png"));
+const PREVIEW = arg("--preview", path.join(os.tmpdir(), "itch-form-preview.png")); // dashboard capture; keep out of the repo
 
 const FIELDS = {
   title: "COHERENCE: Braid",

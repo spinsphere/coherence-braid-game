@@ -46,3 +46,6 @@ next-env.d.ts
 
 # itch.io zip and press renders are build outputs
 coherence-braid-itch.zip
+
+# itch dashboard captures (logged-in pages, not press material)
+submission/assets/itch-*.png
